@@ -13,7 +13,7 @@
                         <div class="card-body">
                             <h5 class="card-title">{{ $product->title }}</h5>
                             <h5 class="card-text float-left">${{ $product->price }}</h5>
-                            <button class="btn btn-primary float-right">Add to cart</button>
+                            <button data-id="{{ $product->id }}" class="btn btn-primary float-right add-to-cart">Add to cart</button>
                         </div>
                     </div>
                 </div>
