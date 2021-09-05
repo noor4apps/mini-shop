@@ -23,7 +23,7 @@ class CartService {
         $data .= '</ul>';
         if(count($products) > 0) {
             $data .= '<h5 class="p-2">Subtotal: <span class="mini-cart-subtotal">'. CartController::sub_total() .'</span> $</h5>
-                    <a class="dropdown-item text-center border mb-2">
+                    <a class="dropdown-item text-center border mb-2" href="'. route('carts.index') .'">
                         View cart
                     </a>
                     <a class="dropdown-item text-center border bg-light">

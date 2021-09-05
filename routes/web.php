@@ -16,6 +16,8 @@ Route::post('/add-to-cart', [CartController::class, 'add_to_cart'])->name('add-t
 
 Route::post('/remove-from-cart', [CartController::class, 'remove_from_cart'])->name('remove-from-cart');
 
+Route::get('/cart', [CartController::class, 'show_cart_page'])->name('carts.index');
+
 
 Auth::routes();
 

@@ -123,11 +123,12 @@
                     $('.cart-quantity-highlighter').text(res.data.count)
                     $('.append-mini-cart-items').html(res.data.markup)
                     $('.mini-cart-subtotal').text(res.data.subtotal)
+                    $('.final-price').text(res.data.total)
                     $('#cart_item_' + p_id).remove()
                     // swtoaster('success', 'Cart item removed.')
-                    {{--if(res.data.count == 0 && '{{ request()->route()->getName() }}' == 'cart') {--}}
-                    {{--    window.location.href = '{{ route('shop') }}'--}}
-                    {{--}--}}
+                    if(res.data.count == 0 && '{{ request()->route()->getName() }}' == 'carts.index') {
+                        window.location.href = '{{ url('/') }}'
+                    }
                 })
                 .catch(err => console.log(err))
         })

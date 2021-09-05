@@ -162,8 +162,38 @@ class CartController extends Controller
             'count'    => self::total_in_cart(),
             'items'    => self::cart_items(),
             'markup'   => self::get_markup(),
-            'subtotal' => self::sub_total()
+            'subtotal' => self::sub_total(),
+            'total'    => self::cart_final_price()
         ]);
+    }
+
+    /**
+     * cart page view
+     */
+    public function show_cart_page()
+    {
+        if (self::total_in_cart() > 0) {
+            return view('carts.index');
+        } else {
+            return redirect()->back();
+        }
+    }
+
+    /**
+     * Returns the final price after tax, discount and shipping charge calculation
+     */
+    public static function cart_final_price()
+    {
+        $subTotal = self::sub_total();
+
+        // Coupon discount
+        $couponAmount = 0;
+
+        // we will add discount, tax and shipping charge here
+        $tax            = 0;
+        $shippingCharge = 0;
+        $total          = $subTotal + $tax + $shippingCharge - $couponAmount;
+        return $total;
     }
 
 }
