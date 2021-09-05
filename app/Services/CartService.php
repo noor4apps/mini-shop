@@ -15,8 +15,8 @@ class CartService {
                             <h5 class="mt-0 mb-1">'. $product->title .'</h5>
                             <span class="quantity"> '. CartController::get_cart()[$product->id]['qty'] .' ×<span> '. $product->price .' $</span></span>
                         </div>
-                        <button type="button" class="close" data-product_id="'. $product->id .'">
-                            <span class="p-1">&times;</span>
+                        <button type="button" class="close">
+                            <span class="p-1 remove-from-cart" data-product_id="'. $product->id .'">&times;</span>
                         </button>
                       </li>';
         }

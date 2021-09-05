@@ -138,4 +138,32 @@ class CartController extends Controller
         return sprintf("%0.2f", $subTotal);
     }
 
+    /**
+     * Remove item from cart
+     * return [json "total_in_cart, cart_items, get_markup, sub_total"]
+     */
+    public function remove_from_cart(Request $request)
+    {
+        if (auth()->check()) {
+            $user_cart = Cart::where('user_id', auth()->user()->id)->orderBy('created_at', 'desc')->first();
+            if ($user_cart) {
+                $cart_items = json_decode($user_cart->cart_items, true);
+                unset($cart_items[$request->id]);
+                $cart             = Cart::where('user_id', auth()->user()->id)->orderBy('created_at', 'desc')->first();
+                $cart->cart_items = json_encode($cart_items);
+                $cart->save();
+            }
+        }
+        if (session('cart') && count(session('cart')) > 0) {
+            session()->forget('cart.' . $request->id);
+        }
+
+        return response()->json([
+            'count'    => self::total_in_cart(),
+            'items'    => self::cart_items(),
+            'markup'   => self::get_markup(),
+            'subtotal' => self::sub_total()
+        ]);
+    }
+
 }

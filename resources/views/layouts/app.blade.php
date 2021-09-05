@@ -112,6 +112,25 @@
                     // swtoaster('success', 'Added to cart.')
                 }).catch(err => console.log(err))
         })
+
+        $(document).on('click', '.remove-from-cart', function(e) {
+            e.preventDefault()
+            let p_id = $(this).data('product_id')
+            axios.post('{{ route('remove-from-cart') }}', {
+                id: p_id
+            })
+                .then(res => {
+                    $('.cart-quantity-highlighter').text(res.data.count)
+                    $('.append-mini-cart-items').html(res.data.markup)
+                    $('.mini-cart-subtotal').text(res.data.subtotal)
+                    $('#cart_item_' + p_id).remove()
+                    // swtoaster('success', 'Cart item removed.')
+                    {{--if(res.data.count == 0 && '{{ request()->route()->getName() }}' == 'cart') {--}}
+                    {{--    window.location.href = '{{ route('shop') }}'--}}
+                    {{--}--}}
+                })
+                .catch(err => console.log(err))
+        })
     </script>
 </body>
 </html>
