@@ -7,8 +7,7 @@
         </div>
         <div class="row pt-5">
             <div class="col-lg-8">
-                <form action="{{ route('carts.update') }}" method="post">
-                    @csrf
+
                     <table class="table">
                     <thead class="thead-light">
                     <tr>
@@ -38,16 +37,17 @@
                                 </td>
                                 <td>{{ $product->price }}</td>
                                 <td>
-                                    <input type="number" style="max-width: 50%;" class="form-control" step="1" min="0" name="cart[{{ $product->id }}][qty]" value="{{ \App\Http\Controllers\CartController::get_cart()[$product->id]['qty'] }}" inputmode="numeric">
+                                    <input type="number" data-product_id="{{ $product->id }}" style="max-width: 50%;" class="form-control click-change-qty" step="1" min="1" name="cart[{{ $product->id }}][qty]" value="{{ \App\Http\Controllers\CartController::get_cart()[$product->id]['qty'] }}" inputmode="numeric">
                                 </td>
-                                <td><span>$</span>{{ $product->price * \App\Http\Controllers\CartController::get_cart()[$product->id]['qty'] }}</td>
+                                <td>
+                                    $<span id="then-price-by-qty-{{ $product->id }}">{{ sprintf("%0.2f",$product->price * \App\Http\Controllers\CartController::get_cart()[$product->id]['qty']) }}</span>
+                                </td>
                             </tr>
                         @endforeach
 
                     </tbody>
                 </table>
-                    <button class="btn btn-secondary float-right">Update cart</button>
-                </form>
+
             </div>
             <div class="col-lg-4" style="border: solid #f8f9fa; max-height: 15rem; margin-top: 8px;">
                 <table class="table table-borderless">

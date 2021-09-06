@@ -196,18 +196,41 @@ class CartController extends Controller
         return $total;
     }
 
-    public function update_cart(Request $request)
+    /**
+     * Update item quantity
+     * return [json "markup, subtotal, total, price_by_qty"]
+     */
+    public function update_item_qty(Request $request)
     {
         if (auth()->check()) {
             $user_cart = Cart::where('user_id', auth()->user()->id)->orderBy('created_at', 'desc')->first();
             if ($user_cart) {
-                $user_cart->cart_items = json_encode($request->cart);
+                $items                 = json_decode($user_cart->cart_items, true);
+                $items[$request->id]     = ['qty' => $request->qty];
+                $user_cart->cart_items = json_encode($items);
                 $user_cart->save();
             }
-        } else {
-            $request->session()->put('cart', $request->cart);
         }
-        return redirect()->back()->with('success', 'Cart updated successfully.');
+        else {
+            $request->session()->put('cart.' . $request->id . '.qty', $request->qty);
+        }
+        return response()->json([
+            'markup'   => self::get_markup(),
+            'subtotal' => self::sub_total(),
+            'total'    => self::cart_final_price(),
+            'price_by_qty' => self::calc_price_by_qty($request->id, $request->qty)
+        ]);
+    }
+
+    /**
+     * Calculate product price multiplied by quantity
+     * return [int price_by_qty]
+     */
+    public static function calc_price_by_qty($p_id, $p_qty)
+    {
+        $product = Product::where('id', $p_id)->first();
+        $price_by_qty = $product->price * ((int)$p_qty);
+        return sprintf("%0.2f", $price_by_qty);
     }
 
 }

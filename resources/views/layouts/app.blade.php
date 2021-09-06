@@ -132,6 +132,26 @@
                 })
                 .catch(err => console.log(err))
         })
+        
+        $(document).on('keyup change', '.click-change-qty', function(e) {
+            e.preventDefault()
+            let pid = $(this).data('product_id')
+            let pqty = $(this).val();
+
+            axios.post('{{ route('carts.update') }}', {
+                id: pid,
+                qty: pqty
+            })
+                .then(res => {
+                    $('.append-mini-cart-items').html(res.data.markup)
+                    $('.mini-cart-subtotal').text(res.data.subtotal)
+                    $('.final-price').text(res.data.total)
+                    $('#then-price-by-qty-'+pid).text(res.data.price_by_qty)
+
+                    // swtoaster('success', 'Cart item removed.')
+                })
+                .catch(err => console.log(err))
+        })
     </script>
 </body>
 </html>
