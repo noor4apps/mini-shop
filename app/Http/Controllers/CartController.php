@@ -196,4 +196,18 @@ class CartController extends Controller
         return $total;
     }
 
+    public function update_cart(Request $request)
+    {
+        if (auth()->check()) {
+            $user_cart = Cart::where('user_id', auth()->user()->id)->orderBy('created_at', 'desc')->first();
+            if ($user_cart) {
+                $user_cart->cart_items = json_encode($request->cart);
+                $user_cart->save();
+            }
+        } else {
+            $request->session()->put('cart', $request->cart);
+        }
+        return redirect()->back()->with('success', 'Cart updated successfully.');
+    }
+
 }

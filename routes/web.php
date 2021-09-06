@@ -18,6 +18,8 @@ Route::post('/remove-from-cart', [CartController::class, 'remove_from_cart'])->n
 
 Route::get('/cart', [CartController::class, 'show_cart_page'])->name('carts.index');
 
+Route::post('/cart-update', [CartController::class,'update_cart'])->name('carts.update');
+
 
 Auth::routes();
 
