@@ -75,6 +75,7 @@ class OrderController extends Controller
 
             $user           = new User();
             $user->name = $request->input('name');
+            $user->type = 'customer';
             $user->email    = $request->input('email');
             $user->password = bcrypt($request->input('password'));
             $user->save();

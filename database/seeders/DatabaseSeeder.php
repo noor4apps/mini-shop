@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\File;
+use Prophecy\Call\Call;
 
 class DatabaseSeeder extends Seeder
 {
@@ -18,6 +19,9 @@ class DatabaseSeeder extends Seeder
 
         File::deleteDirectory(public_path('uploads/images'));
 
-        \App\Models\Product::factory(10)->create();
+        \App\Models\Product::factory(5)->create();
+
+        $this->call(UserSeeder::class);
+
     }
 }

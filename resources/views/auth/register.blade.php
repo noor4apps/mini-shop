@@ -61,6 +61,20 @@
                             </div>
                         </div>
 
+                        <!-- radio User Type -->
+                        <div class="form-group row">
+                            <label class="col-md-4 col-form-label text-md-right" for="userCustomer">Customer</label>
+                            <div class="col-md-6">
+                            <input class="form-check-input" type="radio" name="type" id="userCustomer" value="customer" checked>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-4 col-form-label text-md-right" for="userSeller">Seller</label>
+                            <div class="col-md-6">
+                            <input class="form-check-input" type="radio" name="type" id="userSeller" value="seller">
+                            </div>
+                        </div>
+
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
