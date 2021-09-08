@@ -26,7 +26,7 @@ class CartService {
                     <a class="dropdown-item text-center border mb-2" href="'. route('carts.index') .'">
                         View cart
                     </a>
-                    <a class="dropdown-item text-center border bg-light">
+                    <a class="dropdown-item text-center border bg-light" href="'. route('checkout.index') .'">
                         Checkout
                     </a>';
         } else {

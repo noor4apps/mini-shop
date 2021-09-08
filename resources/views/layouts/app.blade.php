@@ -132,7 +132,7 @@
                 })
                 .catch(err => console.log(err))
         })
-        
+
         $(document).on('keyup change', '.click-change-qty', function(e) {
             e.preventDefault()
             let pid = $(this).data('product_id')
@@ -153,5 +153,6 @@
                 .catch(err => console.log(err))
         })
     </script>
+    @yield('scripts')
 </body>
 </html>

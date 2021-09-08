@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
@@ -19,6 +20,12 @@ Route::post('/remove-from-cart', [CartController::class, 'remove_from_cart'])->n
 Route::get('/cart', [CartController::class, 'show_cart_page'])->name('carts.index');
 
 Route::post('/cart-update', [CartController::class,'update_item_qty'])->name('carts.update');
+
+Route::get('/checkout', [OrderController::class ,'checkout'])->name('checkout.index');
+
+Route::post('/order', [OrderController::class ,'store'])->name('place-order');
+
+Route::get('/order-placed/{order}', [OrderController::class, 'order_placed'])->name('order-placed');
 
 
 Auth::routes();

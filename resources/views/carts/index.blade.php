@@ -67,7 +67,7 @@
                     </tr>
                     </tbody>
                 </table>
-                <a class="btn btn-info btn-block">Proceed to checkout</a>
+                <a href="{{ route('checkout.index') }}" class="btn btn-info btn-block">Proceed to checkout</a>
             </div>
         </div>
     </div>

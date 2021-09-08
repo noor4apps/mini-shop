@@ -233,4 +233,26 @@ class CartController extends Controller
         return sprintf("%0.2f", $price_by_qty);
     }
 
+    /**
+     * Make Cart Empty
+     * return [boolean]
+     */
+    public static function make_cart_empty()
+    {
+        if (auth()->check()) {
+            $user_cart = Cart::where('user_id', auth()->user()->id)->orderBy('created_at', 'desc')->first();
+            if ($user_cart) {
+                $user_cart->delete();
+                session()->forget('cart');
+                return true;
+            }
+        }
+        if (session('cart') && count(session('cart')) > 0) {
+            session()->forget('cart');
+            return true;
+        }
+        return false;
+    }
+
+
 }
