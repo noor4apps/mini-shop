@@ -19,9 +19,10 @@ class DatabaseSeeder extends Seeder
 
         File::deleteDirectory(public_path('uploads/images'));
 
+        $this->call(UserSeeder::class);
+
         \App\Models\Product::factory(5)->create();
 
-        $this->call(UserSeeder::class);
 
     }
 }

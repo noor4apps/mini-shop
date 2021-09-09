@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Product;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\File;
 
@@ -35,6 +36,7 @@ class ProductFactory extends Factory
             'price' => $price = $this->faker->randomFloat(2, 10, 100),
             'qty' => rand(15, 100),
             'thumbnail' => $this->faker->image('public/uploads/images/products', 600, 600, 'Product: ', false),
+            'user_id' => User::where('type', 'like', 'seller')->inRandomOrder()->first()->id,
         ];
     }
 }
